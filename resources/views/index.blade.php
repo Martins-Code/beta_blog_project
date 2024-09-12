@@ -5,89 +5,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
 
-        .container {
-            width: 100%;
-            max-width: 400px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px;
-        }
+.container, .post-container {
+    width: 100%;
+    max-width: 450px; /* Consistent width for all containers */
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px auto; /* Center and add consistent spacing between sections */
+}
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
+form {
+    display: flex;
+    flex-direction: column;
+}
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-            width: 100%;
-        }
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+}
 
-        button {
-            padding: 10px;
-            border: none;
-            background-color: #5cb85c;
-            color: white;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
 
-        button:hover {
-            background-color: #4cae4c;
-        }
+button {
+    padding: 10px;
+    border: none;
+    background-color: #5cb85c;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
-        .logout {
-            text-align: center;
-        }
+button:hover {
+    background-color: #4cae4c;
+}
 
-        .logout button {
-            background-color: #d9534f;
-        }
+.logout {
+    text-align: center;
+}
 
-        .logout button:hover {
-            background-color: #c9302c;
-        }
+.logout button {
+    background-color: #d9534f;
+}
 
-        .message {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 18px;
-            color: #555;
-        }
+.logout button:hover {
+    background-color: #c9302c;
+}
+
+.message {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #555;
+}
+
     </style>
-</head>
-
-<body>
+    <body>
+        <body>
 
     @auth
+
     <div class="container">
+        <p class="message">Congratulations! You are logged in!!!</p>
+    </div>
+
+    <div class="container post-container">
+        <h2>Create a new Post</h2>
+        <form action="/create-post" method="post">
+            @csrf
+            <input type="text" name="title" id="title" placeholder="Title">
+            <textarea name="body" placeholder="Enter Blog Post..."></textarea>
+            <button type="submit">Save Post</button>
+        </form>
+    </div>
+
+      <div class="container">
         <p class="message">Congratulations! You are logged in!!!</p>
         <div class="logout">
             <form action="/logout" method="post">
@@ -96,7 +119,9 @@
             </form>
         </div>
     </div>
+    
     @else
+
     <div class="container">
         <h2>Register</h2>
         <form action="/register" method="post">
@@ -117,8 +142,12 @@
             <button type="submit">Login</button>
         </form>
     </div>
+    
     @endauth
 
 </body>
+
+    </body>
+
 
 </html>
