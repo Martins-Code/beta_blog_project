@@ -67,6 +67,19 @@
             cursor: pointer;
         }
 
+
+        .delete, .edit {
+            padding: 10px;
+            border: none;
+            background-color: #5cb85c;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 70px;
+            align-self: flex-end;
+        }
+
         button:hover {
             background-color: #4cae4c;
         }
@@ -122,7 +135,7 @@
     @auth
 
     <div class="container">
-        <p class="message">Congratulations! You are logged in!!!</p>
+        <p class="message"><strong>{{ucwords(auth()->user()->name)}}</strong>, You are Logged in!!</p>
     </div>
 
     <div class="post-container">
@@ -142,6 +155,12 @@
         <div class="post-card">
             <h3>{{ $post['title'] }}</h3>
             <p>{{ $post['body'] }}</p>
+            <button class="edit" type="submit"><a href="/edit-post/{{$post->id}}">Edit</a></button>
+            <form action="/delete-post/{{$post->id}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="delete" type="submit">Delete</button>
+            </form>
             {{-- <p><strong>By:</strong> {{ $post->user->name }}</p> --}}
         </div>
         @endforeach
